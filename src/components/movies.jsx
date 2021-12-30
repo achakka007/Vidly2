@@ -96,8 +96,6 @@ class Movies extends Component {
         const { sortColumn, pageSize, currentPage, searchQuery } = this.state;
         const { user } = this.props;
 
-        if (count === 0) return <p>There are no movies in the database</p>
-
         const { totalCount, data: movies } = this.getPagedData();
 
         return (

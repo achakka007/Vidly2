@@ -9,3 +9,6 @@ brew services start mongodb-community@4.4
 brew services stop mongodb-community@4.4
 
 current tutorial lesson: Authentication & Extraction
+
+npm run build
+serve -s build
