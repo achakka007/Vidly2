@@ -36,10 +36,13 @@ class Movies extends Component {
         this.setState({ movies });
 
         try {
-            deleteMovie(movie._id);
+            await deleteMovie(movie._id);
         } catch (ex) {
             if (ex.response && ex.response.status === 404) {
                 toast.error('This movie has already been deleted.');
+            }
+            else if (ex.response && ex.response.status === 403) {
+                toast.error('Access Denied.');
             }
 
             this.setState({ movies: originalMovies });
@@ -91,6 +94,8 @@ class Movies extends Component {
     render() {
         const { length: count } = this.state.movies;
         const { sortColumn, pageSize, currentPage, searchQuery } = this.state;
+        const { user } = this.props;
+
         if (count === 0) return <p>There are no movies in the database</p>
 
         const { totalCount, data: movies } = this.getPagedData();
@@ -105,13 +110,13 @@ class Movies extends Component {
                     </ListGroup>
                 </div>
                 <div className="col">
-                    <Link
+                    {user && <Link
                         to="/movies/new"
                         className="btn btn-primary"
                         style={{ margin: 20 }}
                     >
                         New Movie
-                    </Link>
+                    </Link>}
                     <p>Showing {totalCount} movies in the database</p>
                     <SearchBox value={searchQuery} onChange={this.handleSearch}></SearchBox>
                     <MoviesTable

@@ -62,9 +62,9 @@ class MovieForm extends Form {
 
     doSubmit = async () => {
         try {
-            await saveMovie(this.state.data); // Not returning
+            await saveMovie(this.state.data);
         } catch (ex) {
-            toast.error("WEIRD " + ex); // 400 error. hmmmm
+            toast.error("WEIRD " + ex); // error
         }
         this.props.history.push("/movies");
     };
